@@ -1,6 +1,6 @@
 import sys
 import re
-import functools
+from functools import reduce
 
 
 def load_input(src: str = None) -> str:
@@ -26,9 +26,7 @@ def solve(groups: list[list[str]]) -> int:
         map(
             lambda i: ord(i) - ord("a") + 1 if i.islower() else ord(i) - ord("A") + 27,
             map(
-                lambda group: list(
-                    functools.reduce(lambda itemsA, itemsB: set(itemsA) & set(itemsB), group)
-                )[0],
+                lambda group: list(reduce(lambda itemsA, itemsB: set(itemsA) & set(itemsB), group))[0],
                 groups,
             ),
         )
