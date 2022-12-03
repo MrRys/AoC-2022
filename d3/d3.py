@@ -21,7 +21,7 @@ def part1(rucksacks: list[str]) -> int:
             lambda i: ord(i) - ord("a") + 1 if i.islower() else ord(i) - ord("A") + 27,
             map(
                 lambda rucksack: list(
-                    set(rucksack[: len(rucksack) // 2]).intersection(set(rucksack[len(rucksack) // 2 :]))
+                    set(rucksack[: len(rucksack) // 2]) & set(rucksack[len(rucksack) // 2 :])
                 )[0],
                 rucksacks,
             ),
@@ -34,9 +34,7 @@ def part2(groups: list[list[str]]) -> int:
         map(
             lambda i: ord(i) - ord("a") + 1 if i.islower() else ord(i) - ord("A") + 27,
             map(
-                lambda group: list(
-                    set(group[0]).intersection(set(group[1])).intersection(set(group[2]))
-                )[0],
+                lambda group: list(set(group[0]) & set(group[1]) & set(group[2]))[0],
                 groups,
             ),
         )
