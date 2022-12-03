@@ -18,13 +18,10 @@ def parse_groups(input: str) -> list[list[str]]:
 def part1(rucksacks: list[str]) -> int:
     return sum(
         map(
-            lambda i: ord(i) - ord("a") + 1 if i >= "a" else ord(i) - ord("A") + 27,
+            lambda i: ord(i) - ord("a") + 1 if i.islower() else ord(i) - ord("A") + 27,
             map(
                 lambda rucksack: list(
-                    filter(
-                        lambda item: item in rucksack[: len(rucksack) // 2],
-                        rucksack[len(rucksack) // 2 :],
-                    )
+                    set(rucksack[: len(rucksack) // 2]).intersection(set(rucksack[len(rucksack) // 2 :]))
                 )[0],
                 rucksacks,
             ),
@@ -35,13 +32,10 @@ def part1(rucksacks: list[str]) -> int:
 def part2(groups: list[list[str]]) -> int:
     return sum(
         map(
-            lambda i: ord(i) - ord("a") + 1 if i >= "a" else ord(i) - ord("A") + 27,
+            lambda i: ord(i) - ord("a") + 1 if i.islower() else ord(i) - ord("A") + 27,
             map(
                 lambda group: list(
-                    filter(
-                        lambda item: item in group[1] and item in group[2],
-                        group[0],
-                    )
+                    set(group[0]).intersection(set(group[1])).intersection(set(group[2]))
                 )[0],
                 groups,
             ),
