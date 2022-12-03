@@ -24,7 +24,7 @@ def parse_groups(input: str) -> list[list[str]]:
 def solve(groups: list[list[str]]) -> int:
     return sum(
         map(
-            lambda i: ord(i) - ord("a") + 1 if i.islower() else ord(i) - ord("A") + 27,
+            lambda item: ord(item) - ord("a") + 1 if item.islower() else ord(item) - ord("A") + 27,
             map(
                 lambda group: list(reduce(lambda itemsA, itemsB: set(itemsA) & set(itemsB), group))[0],
                 groups,
