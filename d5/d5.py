@@ -5,7 +5,7 @@ import copy
 
 def load_input(src: str = None) -> str:
     with open(src, "r") if src is not None else sys.stdin as src_file:
-        return src_file.read()
+        return src_file.read().strip()
 
 
 def parse_input(input: str):
@@ -28,9 +28,7 @@ def parse_stacks(stacks_str: str) -> dict[list[str]]:
 def parse_commands(commands_str: str) -> list[int]:
     return list(
         map(
-            lambda command: list(
-                map(lambda instr: int(instr), re.sub(r"[^0-9| ]", "", command).strip().split())
-            ),
+            lambda command: list(map(lambda instr: int(instr), re.sub(r"[^0-9| ]", "", command).split())),
             commands_str.strip().split("\n"),
         )
     )
