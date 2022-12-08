@@ -8,10 +8,6 @@ def load_input(src: str = None) -> str:
         return src_file.read().strip()
 
 
-def split_input(input: str):
-    return input.split("\n\n")
-
-
 def parse_stacks(stacks_str: str) -> dict[list[str]]:
     stacks = {}
 
@@ -51,7 +47,7 @@ def solve(stacks: dict[list[str]], commands: list[int], reverse: bool = True) ->
 
 if __name__ == "__main__":
     input = load_input()
-    stacks_str, commands_str = split_input(input)
+    stacks_str, commands_str = input.split("\n\n")
     stacks = parse_stacks(stacks_str)
     commands = parse_commands(commands_str)
     print(solve(copy.deepcopy(stacks), commands, True))
