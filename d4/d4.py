@@ -12,12 +12,12 @@ def parse_pairs(input: str) -> list[list[int]]:
     )
 
 
-def check_overlap(pair: list[int], indexes: list[int]) -> bool:
-    return (pair[indexes[0]] - pair[indexes[1]]) * (pair[indexes[2]] - pair[indexes[3]]) <= 0
+def check_overlap(pair: list[int], idx: list[int]) -> bool:
+    return (pair[idx[0]] - pair[idx[1]]) * (pair[idx[2]] - pair[idx[3]]) <= 0
 
 
-def solve(pairs: list[list[int]], indexes: list[int]):
-    return sum(map(lambda x: check_overlap(x, indexes), pairs))
+def solve(pairs: list[list[int]], idx: list[int]):
+    return sum(map(lambda x: check_overlap(x, idx), pairs))
 
 
 if __name__ == "__main__":
