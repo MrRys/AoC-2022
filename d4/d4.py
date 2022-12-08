@@ -7,7 +7,7 @@ def load_input(src: str = None) -> str:
         return src_file.read().strip()
 
 
-def parse_pairs(input: str) -> list[list[int]]:
+def parse_section_pairs(input: str) -> list[list[int]]:
     return list(map(lambda x: list(map(lambda y: int(y), re.split(r",|-", x))), input.split("\n")))
 
 
@@ -21,6 +21,6 @@ def solve(pairs: list[list[int]], idx: list[int]):
 
 if __name__ == "__main__":
     input = load_input()
-    pairs = parse_pairs(input)
+    pairs = parse_section_pairs(input)
     print(solve(pairs, [0, 2, 1, 3]))
     print(solve(pairs, [0, 3, 1, 2]))
