@@ -11,7 +11,7 @@ def solve(signal: str, dist: int) -> int:
     for idx in range(dist, len(signal)):
         if len(set(marker)) == dist:
             return idx
-        marker.remove(signal[idx - dist])
+        marker = marker[1:]
         marker.append(signal[idx])
 
 
