@@ -1,6 +1,7 @@
 import sys
 import re
 import copy
+from functools import reduce
 
 
 def load_input(src: str = None) -> str:
@@ -38,11 +39,9 @@ def solve(stacks: dict[list[str]], commands: list[int], reverse: bool = True) ->
             stacks[command[2]] += stacks[command[1]][-command[0] :]
         stacks[command[1]] = stacks[command[1]][: len(stacks[command[1]]) - command[0]]
 
-    result = ""
-    for stack in range(1, len(stacks) + 1):
-        result += stacks[stack][-1]
-
-    return result
+    return reduce(
+        lambda result, stack: result + stacks[stack][-1], [""] + list(range(1, len(stacks) + 1))
+    )
 
 
 if __name__ == "__main__":
