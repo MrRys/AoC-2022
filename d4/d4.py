@@ -1,4 +1,5 @@
 import sys
+import re
 
 
 def load_input(src: str = None) -> str:
@@ -7,9 +8,7 @@ def load_input(src: str = None) -> str:
 
 
 def parse_pairs(input: str) -> list[list[int]]:
-    return list(
-        map(lambda x: list(map(lambda y: int(y), x.split(","))), input.replace("-", ",").split("\n"))
-    )
+    return list(map(lambda x: list(map(lambda y: int(y), re.split(r",|-", x))), input.split("\n")))
 
 
 def check_overlap(pair: list[int], idx: list[int]) -> bool:
