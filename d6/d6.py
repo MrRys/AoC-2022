@@ -14,6 +14,8 @@ def solve(signal: str, dist: int) -> int:
         marker = marker[1:]
         marker.append(signal[idx])
 
+    return -1
+
 
 if __name__ == "__main__":
     signal = load_input()
