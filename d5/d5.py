@@ -31,9 +31,9 @@ def parse_commands(commands_str: str) -> list[int]:
     )
 
 
-def solve(stacks: dict[list[str]], commands: list[int], reverse: bool = True) -> str:
+def solve(stacks: dict[list[str]], commands: list[int], move_one: bool = True) -> str:
     for command in commands:
-        if reverse:
+        if move_one:
             stacks[command[2]] += reversed(stacks[command[1]][-command[0] :])
         else:
             stacks[command[2]] += stacks[command[1]][-command[0] :]
