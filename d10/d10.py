@@ -24,7 +24,7 @@ def solve(instructions: list[list[str]]) -> int:
     instruction = None
     in_progress = False
 
-    screen = [[" " for _ in range(40)] for _ in range(6)]
+    screen = [["." for _ in range(40)] for _ in range(6)]
     screen[0][0] = "#"
 
     while len(instructions) or in_progress:
