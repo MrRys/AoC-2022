@@ -33,19 +33,19 @@ def solve(instructions: list[list[str]]) -> int:
             instruction = instructions[0]
             instructions = instructions[1:]
 
-        if instruction[0] == "noop":
-            instruction = None
-
-        elif instruction[0] == "addx":
-            if in_progress:
-                regX += int(instruction[1])
+        match instruction[0]:
+            case "noop":
                 instruction = None
-                in_progress = False
-            else:
-                in_progress = True
+            case "addx":
+                if in_progress:
+                    regX += int(instruction[1])
+                    instruction = None
+                    in_progress = False
+                else:
+                    in_progress = True
 
         if cycle % 40 >= regX - 1 and cycle % 40 <= regX + 1:
-            screen[(cycle) // 40][(cycle) % 40] = "#"
+            screen[cycle // 40][cycle % 40] = "#"
 
         cycle += 1
 
