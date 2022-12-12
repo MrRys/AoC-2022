@@ -1,8 +1,5 @@
-import sys
-
-
-def load_input(src: str = None) -> str:
-    with open(src, "r") if src is not None else sys.stdin as src_file:
+def load_input() -> str:
+    with open(0) as src_file:
         return src_file.read().strip()
 
 

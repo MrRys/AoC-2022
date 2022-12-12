@@ -1,6 +1,3 @@
-import sys
-
-
 outcome_score1 = {
     "A X": 3 + 1,
     "A Y": 6 + 2,
@@ -26,8 +23,8 @@ outcome_score2 = {
 }
 
 
-def load_input(src: str = None) -> str:
-    with open(src, "r") if src is not None else sys.stdin as src_file:
+def load_input() -> str:
+    with open(0) as src_file:
         return src_file.read().strip()
 
 
