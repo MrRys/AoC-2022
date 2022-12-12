@@ -8,7 +8,7 @@ def load_input(src: str = None) -> str:
         return src_file.read().strip()
 
 
-def parse_map(input: str) -> list[list[int]]:
+def parse_map(input: str) -> tuple[list[list[int]], tuple[int], tuple[int]]:
     start = input.replace("\n", "").find("S")
     end = input.replace("\n", "").find("E")
     input = input.replace("S", "a").replace("E", "z")
