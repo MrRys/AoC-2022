@@ -13,44 +13,34 @@ def parse_list_pairs(input: str) -> list[list]:
 
 def check_pair(left, right) -> int:
     if isinstance(left, int) and isinstance(right, int):
-        if left < right:
-            return 1
-        elif left > right:
-            return -1
-        else:
-            return 0
+        return -(left - right)
 
     elif isinstance(left, list) and isinstance(right, list):
         for left_n, right_n in zip(left, right):
             result = check_pair(left_n, right_n)
             if result != 0:
                 return result
-
-        if len(left) < len(right):
-            return 1
-        elif len(left) > len(right):
-            return -1
-        else:
-            return 0
+        return -(len(left) - len(right))
 
     else:
         return check_pair([left], right) if isinstance(left, int) else check_pair(left, [right])
 
 
-def solve(pairs: list[list]) -> int:
+def part1(pairs: list[list]) -> int:
     result = 0
     for pair_n, pair in enumerate(pairs):
-        check = check_pair(pair[0], pair[1])
-        if check > 0:
-            result += (pair_n + 1) * check
+        result += (check_pair(pair[0], pair[1]) > 0) * (pair_n + 1)
     return result
+
+
+def part2(pairs: list[list]) -> int:
+    flatten = [element for pair in pairs for element in pair]
+    sorted_list = sorted(flatten + [[[2]], [[6]]], key=cmp_to_key(check_pair), reverse=True)
+    return (sorted_list.index([[2]]) + 1) * (sorted_list.index([[6]]) + 1)
 
 
 if __name__ == "__main__":
     input = load_input()
     pairs = parse_list_pairs(input)
-    print(solve(pairs))
-
-    flatten = [element for pair in pairs for element in pair]
-    sorted_list = sorted(flatten + [[[2]], [[6]]], key=cmp_to_key(check_pair), reverse=True)
-    print((sorted_list.index([[2]]) + 1) * (sorted_list.index([[6]]) + 1))
+    print(part1(pairs))
+    print(part2(pairs))
