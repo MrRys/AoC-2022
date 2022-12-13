@@ -13,14 +13,14 @@ def parse_list_pairs(input: str) -> list[list]:
 
 def compare_pair(left, right) -> int:
     if isinstance(left, int) and isinstance(right, int):
-        return -(left - right)
+        return left - right
 
     elif isinstance(left, list) and isinstance(right, list):
         for left_n, right_n in zip(left, right):
             result = compare_pair(left_n, right_n)
             if result != 0:
                 return result
-        return -(len(left) - len(right))
+        return len(left) - len(right)
 
     else:
         return compare_pair([left], right) if isinstance(left, int) else compare_pair(left, [right])
@@ -29,13 +29,13 @@ def compare_pair(left, right) -> int:
 def part1(pairs: list[list]) -> int:
     result = 0
     for pair_n, pair in enumerate(pairs):
-        result += (compare_pair(pair[0], pair[1]) > 0) * (pair_n + 1)
+        result += (compare_pair(pair[0], pair[1]) < 0) * (pair_n + 1)
     return result
 
 
 def part2(pairs: list[list]) -> int:
     flatten = [element for pair in pairs for element in pair]
-    sorted_list = sorted(flatten + [[[2]], [[6]]], key=cmp_to_key(compare_pair), reverse=True)
+    sorted_list = sorted(flatten + [[[2]], [[6]]], key=cmp_to_key(compare_pair))
     return (sorted_list.index([[2]]) + 1) * (sorted_list.index([[6]]) + 1)
 
 
