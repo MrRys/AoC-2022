@@ -50,39 +50,34 @@ def generate_floor(rock_map: np.ndarray) -> None:
 
 
 def solve(rock_map: np.ndarray) -> int:
-    start_y = rock_map[:, SAND_START_X].tolist().index("#") - 1
+    start_y = rock_map[:, SAND_START_X].tolist().index("#")
     start_x = SAND_START_X
-    rock_map[start_y][start_x] = "o"
-    landed = 1
-    move = on_map = True
+    landed = 0
+    move_up = True
 
-    while on_map:
-        if move:
-            start_y -= 1
+    while True:
+        start_y -= move_up
 
         sand_y, sand_x = start_y, start_x
-        move = True
+        move_up = True
 
         while True:
             if sand_y + 1 >= MAP_RANGE_Y or sand_y < 0 or sand_x + 1 >= MAP_RANGE_X or sand_x - 1 < 0:
-                on_map = False
-                break
+                return landed
 
             if rock_map[sand_y + 1][sand_x] == ".":
                 sand_y = sand_y + 1
-                move = False
+                move_up = False
             elif rock_map[sand_y + 1][sand_x - 1] == ".":
                 sand_y, sand_x = sand_y + 1, sand_x - 1
-                move = False
+                move_up = False
             elif rock_map[sand_y + 1][sand_x + 1] == ".":
                 sand_y, sand_x = sand_y + 1, sand_x + 1
-                move = False
+                move_up = False
             else:
                 rock_map[sand_y][sand_x] = "o"
                 landed += 1
                 break
-
-    return landed
 
 
 if __name__ == "__main__":
