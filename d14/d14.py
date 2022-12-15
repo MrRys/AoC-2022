@@ -2,10 +2,9 @@ import numpy as np
 from copy import deepcopy
 
 
-MAP_RANGE_X = 675
-MAP_RANGE_Y = 171
+MAP_WIDTH = 675
+MAP_HEIGHT = 171
 SAND_START_X = 500
-SAND_START_Y = 0
 
 
 def load_input() -> str:
@@ -29,7 +28,7 @@ def sort_coord(start: list[int], end: list[int]) -> tuple[list[int]]:
 
 
 def generate_rock_map(rocks: list[list[int]]) -> np.ndarray:
-    rock_map = np.array([["." for _ in range(MAP_RANGE_X)] for _ in range(MAP_RANGE_Y)])
+    rock_map = np.array([["." for _ in range(MAP_WIDTH)] for _ in range(MAP_HEIGHT)])
 
     for rock_formation in rocks:
         num_rocks = len(rock_formation)
@@ -62,7 +61,7 @@ def solve(rock_map: np.ndarray) -> int:
         move_up = True
 
         while True:
-            if sand_y + 1 >= MAP_RANGE_Y or sand_y < 0 or sand_x + 1 >= MAP_RANGE_X or sand_x - 1 < 0:
+            if sand_y + 1 >= MAP_HEIGHT or sand_y < 0 or sand_x + 1 >= MAP_WIDTH or sand_x - 1 < 0:
                 return landed
 
             if rock_map[sand_y + 1][sand_x] == ".":
