@@ -19,23 +19,15 @@ def parse_rocks(input: str) -> list[list[int]]:
     ]
 
 
-def sort_coord(start: list[int], end: list[int]) -> tuple[list[int]]:
-    if start[0] > end[0]:
-        start[0], end[0] = end[0], start[0]
-    if start[1] > end[1]:
-        start[1], end[1] = end[1], start[1]
-    return start, end
-
-
 def generate_rock_map(rocks: list[list[int]]) -> np.ndarray:
     rock_map = np.array([["." for _ in range(MAP_WIDTH)] for _ in range(MAP_HEIGHT)])
 
     for rock_formation in rocks:
-        num_rocks = len(rock_formation)
-        for coord_idx in range(1, num_rocks):
+        num_coords = len(rock_formation)
+        for coord_idx in range(1, num_coords):
             start = rock_formation[coord_idx - 1]
             end = rock_formation[coord_idx]
-            start, end = sort_coord(start.copy(), end.copy())
+            start, end = sorted([start, end])
             rock_map[start[0] : end[0] + 1, start[1] : end[1] + 1].fill("#")
 
     return rock_map
