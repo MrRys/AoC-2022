@@ -50,7 +50,7 @@ def generate_floor(rock_map: np.ndarray) -> None:
 
 
 def solve(rock_map: np.ndarray) -> int:
-    start_y = rock_map[:, SAND_START_X].tolist().index("#")
+    start_y = np.where(rock_map[:, SAND_START_X] == "#")[0][0]
     start_x = SAND_START_X
     landed = 0
     move_up = True
