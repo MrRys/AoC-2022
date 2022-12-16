@@ -26,7 +26,7 @@ def parse_input(input: str) -> tuple[defaultdict, set, int, int]:
     min_x = sys.maxsize
     max_x = max_dist = -sys.maxsize
     for line in input.split("\n"):
-        x1, y1, x2, y2 = list(map(lambda x: int(x), re.findall(r"-[0-9]+|[0-9]+", line)))
+        x1, y1, x2, y2 = list(map(lambda x: int(x), re.findall(r"-?[0-9]+", line)))
         dist = manhattan(x1, y1, x2, y2)
         sensors[(x1, y1)] = dist
         beacons.add((x2, y2))
@@ -39,17 +39,20 @@ def parse_input(input: str) -> tuple[defaultdict, set, int, int]:
 
 def part1(sensors: defaultdict, beacons: int, min_x: int, max_x: int, pos_y: int) -> int:
     impossible = set()
+
     for x in range(min_x, max_x + 1):
         for sensor in sensors:
             dist = sensors[sensor]
             if dist < manhattan(sensor[0], sensor[1], x, pos_y) or (x, pos_y) in beacons:
                 continue
             impossible.add(x)
+
     return len(impossible)
 
 
 def part2(sensors: defaultdict, limit: int) -> int:
     points = defaultdict(lambda: 0)
+
     for sensor in sensors:
         dist = sensors[sensor]
         pos_x1 = (sensor[0] + dist + 1, sensor[1])
@@ -58,6 +61,7 @@ def part2(sensors: defaultdict, limit: int) -> int:
         pos_y2 = (sensor[0], sensor[1] - dist - 1)
         x = pos_x1[0]
         y = pos_x1[1]
+
         for (x_sign, y_sign, pos) in [(-1, 1, pos_y1), (-1, -1, pos_x2), (1, -1, pos_y2), (1, 1, pos_x1)]:
             while (x, y) != pos:
                 x += x_sign
